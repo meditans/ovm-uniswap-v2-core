@@ -15,10 +15,13 @@ The following assumes the use of `node@>=10`.
 
 `yarn`
 
-## Compile Contracts
+## Compile Contracts (+ transpile to OVM-compatibility)
 
 `yarn compile`
 
+## Compile Contracts normally
+
+`yarn compile:regular`
 ## Run Tests
 
 `yarn test`
