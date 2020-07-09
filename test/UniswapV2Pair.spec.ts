@@ -26,11 +26,11 @@ describe('UniswapV2Pair', () => {
   let token1: Contract
   let pair: Contract
   beforeEach(async () => {
-		provider = await getProvider()
-		const wallets = provider.getWallets()
-		wallet = wallets[0]
-		other = wallets[1]
-		const loadFixture = createFixtureLoader(provider, [wallet])
+    provider = await getProvider()
+    const wallets = provider.getWallets()
+    wallet = wallets[0]
+    other = wallets[1]
+    const loadFixture = createFixtureLoader(provider, [wallet])
     const fixture = await loadFixture(pairFixture)
     factory = fixture.factory
     token0 = fixture.token0

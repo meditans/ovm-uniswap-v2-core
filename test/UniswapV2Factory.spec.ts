@@ -28,7 +28,7 @@ describe('UniswapV2Factory', () => {
     const wallets = provider.getWallets()
     wallet = wallets[0]
     other = wallets[1]
-  	loadFixture = createFixtureLoader(provider, [wallet, other])
+    loadFixture = createFixtureLoader(provider, [wallet, other])
     const fixture = await loadFixture(factoryFixture)
     factory = fixture.factory
   })
