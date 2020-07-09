@@ -1,10 +1,11 @@
 import chai, { expect } from 'chai'
-import { Contract } from 'ethers'
+import { Contract, Wallet } from 'ethers'
 import { MaxUint256 } from 'ethers/constants'
 import { bigNumberify, hexlify, keccak256, defaultAbiCoder, toUtf8Bytes } from 'ethers/utils'
-import { solidity, MockProvider, deployContract } from 'ethereum-waffle'
+import { solidity, deployContract } from 'ethereum-waffle'
 import { ecsign } from 'ethereumjs-util'
 
+import { getProvider } from './shared/setup'
 import { expandTo18Decimals, getApprovalDigest } from './shared/utilities'
 
 import ERC20 from '../build/ERC20.json'
@@ -15,15 +16,16 @@ const TOTAL_SUPPLY = expandTo18Decimals(10000)
 const TEST_AMOUNT = expandTo18Decimals(10)
 
 describe('UniswapV2ERC20', () => {
-  const provider = new MockProvider({
-    hardfork: 'istanbul',
-    mnemonic: 'horn horn horn horn horn horn horn horn horn horn horn horn',
-    gasLimit: 9999999
-  })
-  const [wallet, other] = provider.getWallets()
+  let provider
+  let wallet: Wallet
+  let other: Wallet
 
   let token: Contract
   beforeEach(async () => {
+    provider = await getProvider()
+    const wallets = provider.getWallets()
+    wallet = wallets[0]
+    other = wallets[1]
     token = await deployContract(wallet, ERC20, [TOTAL_SUPPLY])
   })
 
@@ -44,7 +46,7 @@ describe('UniswapV2ERC20', () => {
             ),
             keccak256(toUtf8Bytes(name)),
             keccak256(toUtf8Bytes('1')),
-            1,
+            1, // TODO REPLACE WITH 108 WHEN CHAINID TRANSPILES
             token.address
           ]
         )
