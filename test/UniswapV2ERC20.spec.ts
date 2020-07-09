@@ -31,6 +31,7 @@ describe('UniswapV2ERC20', () => {
 
   it('name, symbol, decimals, totalSupply, balanceOf, DOMAIN_SEPARATOR, PERMIT_TYPEHASH', async () => {
     const name = await token.name()
+    const chainId = (process.env.MODE === 'OVM') ? 108 : 1
     expect(name).to.eq('Uniswap V2')
     expect(await token.symbol()).to.eq('UNI-V2')
     expect(await token.decimals()).to.eq(18)
@@ -46,7 +47,7 @@ describe('UniswapV2ERC20', () => {
             ),
             keccak256(toUtf8Bytes(name)),
             keccak256(toUtf8Bytes('1')),
-            1, // TODO REPLACE WITH 108 WHEN CHAINID TRANSPILES
+            chainId,
             token.address
           ]
         )
