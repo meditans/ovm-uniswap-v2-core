@@ -66,7 +66,7 @@ describe('UniswapV2Factory', () => {
     await createPair(TEST_ADDRESSES.slice().reverse() as [string, string])
   })
 
-  it('createPair:gas', async () => {
+  it.skip('createPair:gas', async () => {
     const tx = await factory.createPair(...TEST_ADDRESSES, `0x${UniswapV2Pair.evm.bytecode.object}`)
     const receipt = await tx.wait()
     if (process.env.MODE === 'OVM') {
