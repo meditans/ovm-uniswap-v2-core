@@ -89,8 +89,29 @@ contract UniswapV2ERC20 is IUniswapV2ERC20 {
             )
         );
         // address recoveredAddress = ecrecover(digest, v, r, s); //TODO UNCOMMENT ONCE ECRECOVER IS WORKING
-        address recoveredAddress = owner;
+        address recoveredAddress = recoverAddr(digest, v, r, s);
         require(recoveredAddress != address(0) && recoveredAddress == owner, 'UniswapV2: INVALID_SIGNATURE');
         _approve(owner, spender, value);
+    }
+
+    function recoverAddr(bytes32 digest, uint8 v, bytes32 r, bytes32 s)
+        internal
+        view
+        returns (address o)
+    {
+        assembly {
+            // define pointer
+            let p := mload(0x40)
+            // store data assembly-favouring ways
+            mstore(p, digest)
+            mstore(add(p, 0x20), v)
+            mstore(add(p, 0x40), r)
+            mstore(add(p, 0x60), s)
+            if iszero(staticcall(sub(gas, 2000), 0x01, p, 0x80, p, 0x20)) {
+                revert(0, 0)
+            }
+            // data
+            o := mload(p)
+        }
     }
 }
