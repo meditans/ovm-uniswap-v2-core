@@ -164,7 +164,7 @@ describe('UniswapV2Pair', () => {
     expect(await token1.balanceOf(wallet.address)).to.eq(totalSupplyToken1.sub(token1Amount).sub(swapAmount))
   })
 
-  it.skip('swap:gas', async () => {
+  it('swap:gas', async () => {
     const token0Amount = expandTo18Decimals(5)
     const token1Amount = expandTo18Decimals(10)
     await addLiquidity(token0Amount, token1Amount)
@@ -180,7 +180,7 @@ describe('UniswapV2Pair', () => {
     const tx = await pair.swap(expectedOutputAmount, 0, wallet.address, '0x', overrides)
     const receipt = await tx.wait()
     if (process.env.MODE === 'OVM') {
-      expect(receipt.gasUsed).to.eq(434360)
+      expect(receipt.gasUsed).to.eq(2870593)
     } else {
       expect(receipt.gasUsed).to.eq(73462)
     }

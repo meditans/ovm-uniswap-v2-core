@@ -35,7 +35,7 @@
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3",
     "@eth-optimism/rollup-full-node": "0.0.1-alpha.29",
-    "@eth-optimism/solc-transpiler": "0.0.1-alpha.28"
+    "@eth-optimism/solc": "0.5.16-alpha.0"
   },
   "scripts": {
     "lint": "yarn prettier ./test/*.ts --check",
@@ -47,7 +47,7 @@
     "compile:regular": "waffle .waffle.json",
     "pretest": "yarn compile",
     "pretest:regular": "yarn compile:regular",
-    "test": "env MODE=OVM mocha",
+    "test": "env NODE_OPTIONS=--max_old_space_size=8192 env MODE=OVM mocha",
     "test:regular": "env MODE=REGULAR mocha",
     "prepublishOnly": "yarn test"
   },

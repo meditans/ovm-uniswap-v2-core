@@ -1,10 +1,17 @@
 {
-  "compilerVersion": "./node_modules/@eth-optimism/solc-transpiler",
+  "compilerVersion": "./node_modules/@eth-optimism/solc",
   "outputType": "all",
   "compilerOptions": {
     "outputSelection": {
       "*": {
-        "*": ["*"],
+        "*": [
+          "evm.bytecode.object",
+          "evm.deployedBytecode.object",
+          "abi",
+          "evm.bytecode.sourceMap",
+          "evm.deployedBytecode.sourceMap",
+          "metadata"
+        ],
         "": ["ast"]
       }
     },
@@ -12,7 +19,6 @@
     "optimizer": {
       "enabled": true,
       "runs": 999999
-    },
-    "executionManagerAddress": "0xA193E42526F1FEA8C99AF609dcEabf30C1c29fAA"
+    }
   }
 }
