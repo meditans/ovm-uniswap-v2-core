@@ -10,6 +10,8 @@ import {
   solidityPack
 } from 'ethers/utils'
 
+const OVM_CHAIN_ID = 108
+
 const PERMIT_TYPEHASH = keccak256(
   toUtf8Bytes('Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)')
 )
@@ -26,7 +28,7 @@ function getDomainSeparator(name: string, tokenAddress: string) {
         keccak256(toUtf8Bytes('EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)')),
         keccak256(toUtf8Bytes(name)),
         keccak256(toUtf8Bytes('1')),
-        1,
+        OVM_CHAIN_ID,
         tokenAddress
       ]
     )

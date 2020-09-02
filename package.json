@@ -41,7 +41,7 @@
     "precompile": "yarn clean",
     "compile": "waffle .waffle.json",
     "pretest": "yarn compile",
-    "test": "mocha",
+    "test": "mocha --timeout 20000",
     "prepublishOnly": "yarn test"
   },
   "license": "GPL-3.0-or-later"

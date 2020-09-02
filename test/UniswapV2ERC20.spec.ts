@@ -2,8 +2,11 @@ import chai, { expect } from 'chai'
 import { Contract } from 'ethers'
 import { MaxUint256 } from 'ethers/constants'
 import { bigNumberify, hexlify, keccak256, defaultAbiCoder, toUtf8Bytes } from 'ethers/utils'
-import { solidity, MockProvider, deployContract } from 'ethereum-waffle'
+import { solidity, deployContract } from 'ethereum-waffle'
 import { ecsign } from 'ethereumjs-util'
+
+const toolchain = require('@eth-optimism/ovm-toolchain')
+const MockProvider = toolchain.waffleV2.MockProvider
 
 import { expandTo18Decimals, getApprovalDigest } from './shared/utilities'
 
@@ -44,7 +47,7 @@ describe('UniswapV2ERC20', () => {
             ),
             keccak256(toUtf8Bytes(name)),
             keccak256(toUtf8Bytes('1')),
-            1,
+            108,
             token.address
           ]
         )
