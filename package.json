@@ -22,6 +22,8 @@
     "node": ">=10"
   },
   "devDependencies": {
+    "@eth-optimism/ovm-toolchain": "0.0.1-alpha.11",
+    "@eth-optimism/solc": "0.5.16-alpha.2",
     "@types/chai": "^4.2.6",
     "@types/mocha": "^5.2.7",
     "chai": "^4.2.0",
@@ -33,23 +35,22 @@
     "rimraf": "^3.0.0",
     "solc": "0.5.16",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.3",
-    "@eth-optimism/rollup-full-node": "0.0.1-alpha.29",
-    "@eth-optimism/solc": "0.5.16-alpha.0"
+    "typescript": "^3.7.3"
   },
   "scripts": {
     "lint": "yarn prettier ./test/*.ts --check",
     "lint:fix": "yarn prettier ./test/*.ts --write",
     "clean": "rimraf ./build/",
+    "precompile:ovm": "yarn clean",
     "precompile": "yarn clean",
-    "precompile:regular": "yarn clean",
-    "compile": "waffle .waffle-ovm.json",
-    "compile:regular": "waffle .waffle.json",
+    "compile:ovm": "waffle .waffle-ovm.json",
+    "compile": "waffle .waffle.json",
+    "pretest:ovm": "yarn compile:ovm",
     "pretest": "yarn compile",
-    "pretest:regular": "yarn compile:regular",
-    "test": "env NODE_OPTIONS=--max_old_space_size=8192 env MODE=OVM mocha",
-    "test:regular": "env MODE=REGULAR mocha",
+    "test:ovm": "env NODE_OPTIONS=--max_old_space_size=8192 env MODE=OVM mocha",
+    "test": "env MODE=REGULAR mocha",
     "prepublishOnly": "yarn test"
   },
-  "license": "GPL-3.0-or-later"
+  "license": "GPL-3.0-or-later",
+  "dependencies": {}
 }

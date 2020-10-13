@@ -18,10 +18,10 @@ const TEST_ADDRESSES: [string, string] = [
 ]
 
 describe('UniswapV2Factory', () => {
-	let provider: MockProvider
-	let wallet: Wallet
-	let other: Wallet
-  let loadFixture 
+  let provider: MockProvider
+  let wallet: Wallet
+  let other: Wallet
+  let loadFixture
   let factory: Contract
   beforeEach(async () => {
     provider = await getProvider()
@@ -70,7 +70,7 @@ describe('UniswapV2Factory', () => {
     const tx = await factory.createPair(...TEST_ADDRESSES)
     const receipt = await tx.wait()
     if (process.env.MODE === 'OVM') {
-      expect(receipt.gasUsed).to.eq(5541970)
+      expect(receipt.gasUsed).to.eq(3907899)
     } else {
       expect(receipt.gasUsed).to.eq(2512920)
     }
