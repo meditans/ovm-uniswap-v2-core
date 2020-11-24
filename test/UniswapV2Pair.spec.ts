@@ -28,8 +28,8 @@ describe('UniswapV2Pair', () => {
   beforeEach(async () => {
     provider = await getProvider()
     const wallets = provider.getWallets()
-    wallet = wallets[0]
-    other = wallets[1]
+    wallet = wallets[1]
+    other = wallets[0]
     const loadFixture = createFixtureLoader(provider, [wallet])
     const fixture = await loadFixture(pairFixture)
     factory = fixture.factory
@@ -167,16 +167,21 @@ describe('UniswapV2Pair', () => {
   it('swap:gas', async () => {
     const token0Amount = expandTo18Decimals(5)
     const token1Amount = expandTo18Decimals(10)
+    console.log('adding liquidity...')
     await addLiquidity(token0Amount, token1Amount)
 
     // ensure that setting price{0,1}CumulativeLast for the first time doesn't affect our gas math
     await mineBlock(provider, (await provider.getBlock('latest')).timestamp + 1)
+    console.log('syncing pair...')
     await pair.sync(overrides)
 
     const swapAmount = expandTo18Decimals(1)
     const expectedOutputAmount = bigNumberify('453305446940074565')
+    console.log('transferring...')
     await token1.transfer(pair.address, swapAmount)
+    console.log('mining block...')
     await mineBlock(provider, (await provider.getBlock('latest')).timestamp + 1)
+    console.log('we swapping now...')
     const tx = await pair.swap(expectedOutputAmount, 0, wallet.address, '0x', overrides)
     const receipt = await tx.wait()
     if (process.env.MODE === 'OVM') {

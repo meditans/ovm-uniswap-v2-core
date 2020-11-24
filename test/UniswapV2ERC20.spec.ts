@@ -26,12 +26,13 @@ describe('UniswapV2ERC20', () => {
     const wallets = provider.getWallets()
     wallet = wallets[0]
     other = wallets[1]
+    console.log(wallet.address)
     token = await deployContract(wallet, ERC20, [TOTAL_SUPPLY])
   })
 
   it('name, symbol, decimals, totalSupply, balanceOf, DOMAIN_SEPARATOR, PERMIT_TYPEHASH', async () => {
     const name = await token.name()
-    const chainId = process.env.MODE === 'OVM' ? 108 : 1
+    const chainId = process.env.MODE === 'OVM' ? 420 : 1
     expect(name).to.eq('Uniswap V2')
     expect(await token.symbol()).to.eq('UNI-V2')
     expect(await token.decimals()).to.eq(18)

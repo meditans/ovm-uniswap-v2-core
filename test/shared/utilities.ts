@@ -19,7 +19,7 @@ export function expandTo18Decimals(n: number): BigNumber {
 }
 
 function getDomainSeparator(name: string, tokenAddress: string) {
-  const chainId = process.env.MODE === 'OVM' ? 108 : 1
+  const chainId = process.env.MODE === 'OVM' ? 420 : 1
   return keccak256(
     defaultAbiCoder.encode(
       ['bytes32', 'bytes32', 'bytes32', 'uint256', 'address'],
