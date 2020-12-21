@@ -2,7 +2,7 @@ import chai, { expect } from 'chai'
 import { Contract } from 'ethers'
 import { solidity, MockProvider, createFixtureLoader } from 'ethereum-waffle'
 import { BigNumber } from '@ethersproject/bignumber'
-
+import { provider } from './shared/config'
 import { expandTo18Decimals, mineBlock, encodePrice } from './shared/utilities'
 import { pairFixture } from './shared/fixtures'
 import { AddressZero } from '@ethersproject/constants'
@@ -16,13 +16,6 @@ const overrides = {
 }
 
 describe('UniswapV2Pair', () => {
-  const provider = new MockProvider({
-    ganacheOptions: {
-      hardfork: 'istanbul',
-      mnemonic: 'horn horn horn horn horn horn horn horn horn horn horn horn',
-      gasLimit: 9999999
-    }
-  })
   const [wallet, other] = provider.getWallets()
   const loadFixture = createFixtureLoader([wallet, other], provider)
 
